@@ -24,24 +24,28 @@ function login(event) {
   if (password.length < 6) return alert("Password must be at least 6 characters long");
 
   currentEmpId = empId;
-  document.getElementById("empDisplay").textContent = currentEmpId;
-  document.getElementById("loginForm").classList.add("hidden");
-  document.getElementById("timesheetForm").classList.remove("hidden");
-  document.getElementById("timesheetTitle").classList.remove("hidden");
+
+  document.querySelector("#loginForm").parentElement.classList.add("hidden");
+  document.querySelector("#timesheetForm").classList.remove("hidden");
 }
+
+
 
 function logout() {
   if (confirm("Are you sure you want to logout?")) {
     currentEmpId = "";
     editingRowIndex = null;
-    document.getElementById("loginForm").classList.remove("hidden");
-    document.getElementById("timesheetForm").classList.add("hidden");
-    document.getElementById("timesheetTitle").classList.add("hidden");
+
+    document.querySelector("#loginForm").parentElement.classList.remove("hidden");
+    document.querySelector("#timesheetForm").classList.add("hidden");
+
     clearForm();
     document.getElementById("latestEntrySection").innerHTML = "";
     document.getElementById("allEntriesSection").classList.add("hidden");
   }
 }
+
+
 
 function saveEntry(event) {
   event.preventDefault();

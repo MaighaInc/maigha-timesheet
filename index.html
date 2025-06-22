@@ -5,84 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Timesheet Management</title>
   <link rel="stylesheet" href="style.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-
   <!-- Login Form -->
-  <form id="loginForm">
-    <h2>Employee Login</h2>
-    <div>
-      <label for="empId">Employee ID:</label><br>
-      <input type="text" id="empId" required />
-    </div>
-    <br>
-    <div>
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" required />
-    </div>
-    <br>
-    <button type="submit">Login</button>
-  </form>
+  <div class="wrapper">
+    <form id="loginForm">
+      <h1>Employee Login</h1>
+      <div class="input-box">
+        <input type="text" id="empId" placeholder="Employee ID" required />
+        <i class='bx bxs-id-card'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Password" required />
+        <i class='bx bxs-lock-alt'></i>
+      </div>
+      <button type="submit" class="btn">Login</button>
+    </form>
+  </div>
 
   <!-- Timesheet Form -->
-  <form id="timesheetForm" class="hidden">
-    <div id="timesheetTitle" class="hidden">
-      <h3>Timesheet For Employee ID: <strong id="empDisplay"></strong></h3>
-    </div>
+  <div class="wrapper hidden" id="timesheetForm">
+    <form>
+      <h1>Employee Timesheet</h1>
+      <div class="input-box">
+        <input type="date" id="date" required />
+        <i class='bx bx-calendar'></i>
+      </div>
+      <div class="input-box">
+        <input type="text" id="day" placeholder="Day" readonly />
+        <i class='bx bx-calendar-week'></i>
+      </div>
+      <div class="input-box">
+        <input type="time" id="startTime" required />
+        <i class='bx bx-time-five'></i>
+      </div>
+      <div class="input-box">
+        <input type="time" id="endTime" required />
+        <i class='bx bx-time-five'></i>
+      </div>
+      <div class="input-box">
+        <input type="text" id="task" placeholder="Task" required />
+        <i class='bx bx-task'></i>
+      </div>
+      <div class="input-box">
+        <input type="number" id="break" step="0.5" placeholder="Break (in hours)" />
+        <i class='bx bx-coffee'></i>
+      </div>
+      <div class="input-box">
+        <input type="number" id="totalHours" step="0.5" placeholder="Total Hours" readonly />
+        <i class='bx bx-hourglass'></i>
+      </div>
 
-    <div>
-      <label for="date">Date:</label>
-      <input type="date" id="date" required />
-    </div>
-    <br>
-
-    <div>
-      <label for="day">Day:</label>
-      <input type="text" id="day" readonly/>
-    </div>
-    <br>
-
-    <div>
-      <label for="startTime">Start Time:</label>
-      <input type="time" id="startTime" required />
-    </div>
-    <br>
-
-    <div>
-      <label for="endTime">End Time:</label>
-      <input type="time" id="endTime" required />
-    </div>
-    <br>
-
-    <div>
-      <label for="task">Task:</label>
-      <input type="text" id="task" required />
-    </div>
-    <br>
-
-    <div>
-      <label for="break">Break (in hours):</label>
-      <input type="number" id="break" step="0.5" />
-    </div>
-    <br>
-
-    <div>
-      <label for="totalHours">Total Hours:</label>
-      <input type="number" id="totalHours" step="0.5" readonly />
-    </div>
-    <br>
-
-    <button type="submit">Save</button>
-    <button type="button" id="newBtn">New</button>
-    <button type="button" id="viewBtn">View</button>
-    <button type="button" id="logoutBtn">Logout</button>
-  </form>
+      <button type="submit" class="btn">Save</button>
+      <button type="button" class="btn" id="newBtn">New</button>
+      <button type="button" class="btn" id="viewBtn">View</button>
+      <button type="button" class="btn" id="logoutBtn">Logout</button>
+    </form>
+  </div>
 
   <!-- Display Latest Entry -->
   <div id="latestEntrySection"></div>
 
   <!-- All Entries Section -->
-  <div id="allEntriesSection" class="hidden">
+  <div class="wrapper hidden" id="allEntriesSection">
     <h2>All Timesheet Entries (All Employees)</h2>
     <table>
       <thead>
@@ -91,11 +77,9 @@
           <th>Task</th><th>Break</th><th>Total Hours</th>
         </tr>
       </thead>
-      <tbody id="entriesTableBody">
-        <!-- Entries will be loaded here -->
-      </tbody>
+      <tbody id="entriesTableBody"></tbody>
     </table>
-    <button onclick="hideAllEntries()">Close</button>
+    <button class="btn" onclick="hideAllEntries()">Close</button>
   </div>
 
   <script src="script.js"></script>
