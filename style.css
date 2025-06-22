@@ -52,8 +52,10 @@ body {
   font-size: 16px;
   color: #fff;
   padding: 0 20px;
+  padding-right: 45px; /* NEW: prevent overlap with icon */
   outline: none;
 }
+
 
 .input-box input::placeholder {
   color: #fff;
