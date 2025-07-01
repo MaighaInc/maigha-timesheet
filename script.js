@@ -1,7 +1,7 @@
 let currentEmpId = "";
 let editingRowIndex = null;
 
-const scriptURL = "https://script.google.com/macros/s/AKfycbyOj6kPo4Pm6523MdXwUN_aCyW7QXpZeTuRn3KP_gfp1t9I6BfVjv6QLnTqqogB7TYD/exec";
+const scriptURL = "https://script.google.com/macros/s/AKfycby4mGaipjvvxs4ms-KklqNHkm4xLn5sz8ZyL8qj9ULUzdZQcb27N4oPZ2ZEFq0pu7P7gw/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("loginForm").addEventListener("submit", login);
@@ -29,8 +29,6 @@ function login(event) {
   document.querySelector("#timesheetForm").classList.remove("hidden");
 }
 
-
-
 function logout() {
   if (confirm("Are you sure you want to logout?")) {
     currentEmpId = "";
@@ -45,8 +43,6 @@ function logout() {
   }
 }
 
-
-
 function saveEntry(event) {
   event.preventDefault();
 
@@ -56,7 +52,7 @@ function saveEntry(event) {
     day: document.getElementById("day").value,
     startTime: document.getElementById("startTime").value,
     endTime: document.getElementById("endTime").value,
-    task: document.getElementById("task").value,
+    task: document.getElementById("task").value.trim(),
     break: document.getElementById("break").value || 0,
     totalHours: document.getElementById("totalHours").value,
     rowIndex: editingRowIndex
@@ -104,6 +100,8 @@ function saveEntry(event) {
 }
 
 function showLatestEntry(entry) {
+  const taskFormatted = entry.task.replace(/\n/g, "<br>");
+
   const html = `
     <h3>Latest Entry</h3>
     <table>
@@ -117,7 +115,7 @@ function showLatestEntry(entry) {
         <td>${entry.day}</td>
         <td>${entry.startTime}</td>
         <td>${entry.endTime}</td>
-        <td>${entry.task}</td>
+        <td>${taskFormatted}</td>
         <td>${entry.break}</td>
         <td>${entry.totalHours}</td>
         <td>
@@ -140,7 +138,12 @@ function editEntry(button) {
   updateDayFromDate();
   document.getElementById("startTime").value = cells[3].innerText;
   document.getElementById("endTime").value = cells[4].innerText;
-  document.getElementById("task").value = cells[5].innerText;
+
+  // Handle multiline task (replacing <br> back to \n if needed)
+  const taskHTML = cells[5].innerHTML;
+  const taskText = taskHTML.replace(/<br\s*\/?>/gi, "\n");
+  document.getElementById("task").value = taskText;
+
   document.getElementById("break").value = cells[6].innerText;
   document.getElementById("totalHours").value = cells[7].innerText;
 
